@@ -31,13 +31,11 @@ if [[ -z "$PRIMARY_FG" ]]; then
 fi
 
 # Characters
-SEGMENT_SEPARATOR="\ue0b0"
+SEGMENT_SEPARATOR=""
 PLUSMINUS="\u00b1"
-BRANCH="\ue0a0"
-DETACHED="\u27a6"
-CROSS="\u2718"
-LIGHTNING="\u26a1"
-GEAR="\u2699"
+CROSS="\u00d7"
+LIGHTNING="\u0021"
+GEAR="\u00bb"
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -88,15 +86,15 @@ prompt_git() {
   if [[ -n "$ref" ]]; then
     if is_dirty; then
       color=yellow
-      ref="${ref} $PLUSMINUS"
+      ref="${ref} $PLUSMINUS "
     else
       color=green
       ref="${ref} "
     fi
     if [[ "${ref/.../}" == "$ref" ]]; then
-      ref="$BRANCH $ref"
+      ref="$ref"
     else
-      ref="$DETACHED ${ref/.../}"
+      ref="${ref/.../}"
     fi
     prompt_segment $color $PRIMARY_FG
     print -n " $ref"
