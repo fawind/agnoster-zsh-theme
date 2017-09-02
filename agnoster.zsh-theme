@@ -103,9 +103,19 @@ prompt_git() {
   fi
 }
 
+# Collapse pwd prompt
+collapsed_wd() {
+  echo $(pwd | perl -pe '
+   BEGIN {
+      binmode STDIN,  ":encoding(UTF-8)";
+      binmode STDOUT, ":encoding(UTF-8)";
+   }; s|^$ENV{HOME}|~|g; s|/([^/.])[^/]*(?=/)|/$1|g; s|/\.([^/])[^/]*(?=/)|/.$1|g
+')
+}
+
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue $PRIMARY_FG ' %~ '
+  prompt_segment blue $PRIMARY_FG " $(collapsed_wd) "
 }
 
 # Status:
